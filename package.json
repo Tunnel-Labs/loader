@@ -1,5 +1,6 @@
 {
 	"name": "@tunnel/loader",
+	"version": "1.0.0",
 	"type": "commonjs",
 	"exports": {
 		".": {
