@@ -31,7 +31,7 @@ const {
 	isGlobSpecifier
 	// @ts-expect-error: bad typings
 } = require('glob-imports');
-const { expandTildeImport } = require('@t/tilde-imports');
+const { expandTildeImport } = require('tilde-imports');
 const resolve = require('resolve.exports');
 const { packageSlugToCategory } = require('./utils/paths.cjs');
 
