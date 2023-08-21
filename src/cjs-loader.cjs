@@ -133,6 +133,8 @@ for (const extension of [
  */
 Object.defineProperty(extensions, '.mjs', {
 	value: transformer,
+	writable: true,
+	configurable: true,
 
 	// Prevent Object.keys from detecting these extensions
 	// when CJS loader iterates over the possible extensions
