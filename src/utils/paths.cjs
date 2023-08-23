@@ -1,10 +1,14 @@
 // @ts-expect-error: works
-const { getProjectDirpath } = require('lion-utils');
+const { getMonorepoDirpath } = require('@tunnel/get-monorepo');
 
 const fs = require('node:fs');
 const path = require('pathe');
 
-const monorepoDirpath = getProjectDirpath(__dirname, { monorepoRoot: true });
+const monorepoDirpath = getMonorepoDirpath(__dirname);
+if (monorepoDirpath === undefined) {
+	throw new Error('could not get monorepo directory')
+}
+
 exports.monorepoDirpath = monorepoDirpath;
 
 /** @type {Record<string, string[]>} */

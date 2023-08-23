@@ -3,9 +3,7 @@
 'use strict';
 
 const path = require('pathe');
-// @ts-expect-error: works
-const { getProjectDirpath } = require('lion-utils');
-const monorepoDirpath = getProjectDirpath(__dirname, { monorepoRoot: true });
+const { monorepoDirpath, packageSlugToCategory } = require('./utils/paths.cjs');
 
 process.env.ESBK_TSCONFIG_PATH = path.join(monorepoDirpath, 'tsconfig.json');
 
@@ -33,7 +31,6 @@ const {
 } = require('glob-imports');
 const { expandTildeImport } = require('tilde-imports');
 const resolve = require('resolve.exports');
-const { packageSlugToCategory } = require('./utils/paths.cjs');
 
 const isPathPattern = /^\.{0,2}\//;
 const isTsFilePattern = /\.[cm]?tsx?$/;
