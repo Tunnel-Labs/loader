@@ -1,5 +1,6 @@
-// @ts-expect-error: works
-const { getMonorepoDirpath } = require('get-monorepo-rooet');
+// @ts-check
+
+const { getMonorepoDirpath } = require('get-monorepo-root');
 
 const fs = require('node:fs');
 const path = require('pathe');
@@ -9,7 +10,7 @@ if (monorepoDirpath === undefined) {
 	throw new Error('could not get monorepo directory');
 }
 
-exports.monorepoDirpath = monorepoDirpath;
+exports.monorepoDirpath = /** @type {string} */ (monorepoDirpath);
 
 /** @type {Record<string, string[]>} */
 const packageCategories = {

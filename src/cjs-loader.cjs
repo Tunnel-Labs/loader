@@ -30,8 +30,6 @@ const {
 } = require('glob-imports');
 // @ts-expect-error: bad typings
 const { createTildeImportsExpander } = require('tilde-imports');
-// @ts-expect-error: bad typings
-const { getMonorepoDirpath } = require('get-monorepo-root');
 const resolve = require('resolve.exports');
 
 const isPathPattern = /^\.{0,2}\//;
@@ -48,8 +46,8 @@ const tsconfig = process.env.ESBK_TSCONFIG_PATH
 const fileMatcher = tsconfig && createFilesMatcher(tsconfig);
 const tsconfigPathsMatcher = tsconfig && createPathsMatcher(tsconfig);
 const applySourceMap = installSourceMapSupport();
-const expandTildeImports = createTildeImportsExpander({
-	monorepoDirpath: getMonorepoDirpath(__dirname)
+const expandTildeImport = createTildeImportsExpander({
+	monorepoDirpath
 });
 
 /**
@@ -263,7 +261,6 @@ function resolveTsFilename(request, parent, isMain, options) {
 
 	if (parent && isTsFilePattern.test(parent.filename) && tsPath) {
 		try {
-			// @ts-expect-error: `this` type
 			return resolveFilename.call(this, tsPath, parent, isMain, options);
 		} catch (/** @type {any} */ error) {
 			const { code } = error;
