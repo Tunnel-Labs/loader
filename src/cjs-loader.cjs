@@ -21,7 +21,6 @@ const {
 	createPathsMatcher,
 	createFilesMatcher
 } = require('get-tsconfig');
-// @ts-expect-error: bad typings
 const { isFileEsmSync } = require('is-file-esm-ts');
 const {
 	getGlobfileContents,
@@ -29,7 +28,10 @@ const {
 	isGlobSpecifier
 	// @ts-expect-error: bad typings
 } = require('glob-imports');
-const { expandTildeImport } = require('tilde-imports');
+// @ts-expect-error: bad typings
+const { createTildeImportsExpander } = require('tilde-imports');
+// @ts-expect-error: bad typings
+const { getMonorepoDirpath } = require('get-monorepo-root');
 const resolve = require('resolve.exports');
 
 const isPathPattern = /^\.{0,2}\//;
@@ -46,6 +48,9 @@ const tsconfig = process.env.ESBK_TSCONFIG_PATH
 const fileMatcher = tsconfig && createFilesMatcher(tsconfig);
 const tsconfigPathsMatcher = tsconfig && createPathsMatcher(tsconfig);
 const applySourceMap = installSourceMapSupport();
+const expandTildeImports = createTildeImportsExpander({
+	monorepoDirpath: getMonorepoDirpath(__dirname)
+});
 
 /**
 	@param {any} module

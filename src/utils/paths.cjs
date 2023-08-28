@@ -1,12 +1,12 @@
 // @ts-expect-error: works
-const { getMonorepoDirpath } = require('@tunnel/get-monorepo');
+const { getMonorepoDirpath } = require('get-monorepo-rooet');
 
 const fs = require('node:fs');
 const path = require('pathe');
 
 const monorepoDirpath = getMonorepoDirpath(__dirname);
 if (monorepoDirpath === undefined) {
-	throw new Error('could not get monorepo directory')
+	throw new Error('could not get monorepo directory');
 }
 
 exports.monorepoDirpath = monorepoDirpath;
@@ -48,10 +48,13 @@ const packageCategories = {
 							`Package at path \`${monorepoDirpath}/${packageCategory}/${packageSlug}\` does not contain a \`package.json\` file, deleting it...`
 						);
 						ghostPackageSlugs.add(packageSlug);
-						fs.rmSync(path.join(monorepoDirpath, packageCategory, packageSlug), {
-							recursive: true,
-							force: true
-						});
+						fs.rmSync(
+							path.join(monorepoDirpath, packageCategory, packageSlug),
+							{
+								recursive: true,
+								force: true
+							}
+						);
 					}
 				}
 
