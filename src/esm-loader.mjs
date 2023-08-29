@@ -17,7 +17,7 @@ import {
 	// @ts-expect-error: bad typings
 } from 'glob-imports';
 // @ts-expect-error: bad typings
-import { createTildeImportsExpander } from 'tilde-imports';
+import { createTildeImportExpander } from 'tilde-imports';
 import {
 	createFilesMatcher,
 	createPathsMatcher,
@@ -29,7 +29,7 @@ import { resolve as resolveExports } from 'resolve.exports';
 import pathsData from './utils/paths.cjs';
 
 const { packageSlugToCategory, monorepoDirpath } = pathsData;
-const expandTildeImport = createTildeImportsExpander({
+const expandTildeImport = createTildeImportExpander({
 	monorepoDirpath
 });
 
