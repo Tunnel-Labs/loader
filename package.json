@@ -12,7 +12,8 @@
 		"tsx": "./src/bin/tsx"
 	},
 	"dependencies": {
-		"@esbuild-kit/core-utils": "^3.1.0",
+		"esbuild": "~0.18.20",
+		"source-map-support": "^0.5.21",
 		"acorn": "^8.9.0",
 		"desm": "^1.3.0",
 		"get-monorepo-root": "^1.0.0",

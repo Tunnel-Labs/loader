@@ -14,7 +14,7 @@ const {
 	installSourceMapSupport,
 	resolveTsPath,
 	transformDynamicImport
-} = require('@esbuild-kit/core-utils');
+} = require('./utils/core-utils.cjs');
 const {
 	getTsconfig,
 	parseTsconfig,

@@ -9,7 +9,7 @@ import {
 	resolveTsPath,
 	transform,
 	transformDynamicImport
-} from '@esbuild-kit/core-utils';
+} from './utils/core-utils.cjs';
 import {
 	getGlobfileContents,
 	getGlobfilePath,
