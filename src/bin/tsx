@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+win2lin () { f="${1/C://c}"; printf '%s\n' "${f//\\//}"; }
+
 ORIGINAL_DIR=$(pwd)
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-SCRIPT_DIR=$( echo "/$SCRIPT_DIR" | sed 's/\\/\//g' | sed 's/://' )
+SCRIPT_DIR=$( win2lin $SCRIPT_DIR )
 cd $ORIGINAL_DIR
 
 node --loader $SCRIPT_DIR/../esm-loader.mjs -- $@
