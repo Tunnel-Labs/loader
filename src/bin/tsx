@@ -1,10 +1,16 @@
-#!/usr/bin/env bash
+#!/usr/bin/env node
 
-win2lin () { f="${1/C://c}"; printf '%s\n' "${f//\\//}"; }
+const { spawnSync } = require('child_process');
+const path = require('path');
 
-ORIGINAL_DIR=$(pwd)
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-SCRIPT_DIR=$( win2lin $SCRIPT_DIR )
-cd $ORIGINAL_DIR
-
-node --loader $SCRIPT_DIR/../esm-loader.mjs -- $@
+const { status } = spawnSync(
+	'node',
+	[
+		'--loader',
+		path.join(__dirname, '../esm-loader.mjs'),
+		'--',
+		...process.argv.slice(2)
+	],
+	{ stdio: 'inherit' }
+);
+process.exit(status);
