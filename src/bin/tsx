@@ -7,7 +7,7 @@ const { status } = spawnSync(
 	'node',
 	[
 		'--loader',
-		path.join(__dirname, '../esm-loader.mjs'),
+		path.join(__dirname.replace(/^[a-zA-Z]:/, ''), '../esm-loader.mjs'),
 		'--',
 		...process.argv.slice(2)
 	],
