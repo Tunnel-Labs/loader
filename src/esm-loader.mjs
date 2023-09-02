@@ -11,9 +11,8 @@ import {
 	transformDynamicImport
 } from './utils/core-utils.cjs';
 import {
-	getGlobfileContents,
-	getGlobfilePath,
-	isGlobSpecifier
+	isGlobSpecifier,
+	createGlobfileManager
 	// @ts-expect-error: bad typings
 } from 'glob-imports';
 // @ts-expect-error: bad typings
@@ -30,6 +29,9 @@ import pathsData from './utils/paths.cjs';
 
 const { packageSlugToCategory, monorepoDirpath } = pathsData;
 const expandTildeImport = createTildeImportExpander({
+	monorepoDirpath
+});
+const { getGlobfileContents, getGlobfilePath } = createGlobfileManager({
 	monorepoDirpath
 });
 
@@ -461,7 +463,9 @@ export const load = async function (url, context, defaultLoad) {
 		};
 	}
 
-	const globfilePath = url.startsWith('file://') ? fileURLToPath(url) : url;
+	const globfilePath = path
+		.normalize(url.startsWith('file://') ? fileURLToPath(url) : url)
+		.replace(/^[a-zA-Z]:/, '');
 
 	if (path.basename(globfilePath).startsWith('__virtual__:')) {
 		const globfileContents = getGlobfileContents({
