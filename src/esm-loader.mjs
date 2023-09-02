@@ -268,10 +268,12 @@ export const resolve = async function (
 	if (specifier.startsWith('~') && context.parentURL !== undefined) {
 		const importerFilePath = fileURLToPath(context.parentURL);
 		return {
-			url: `file://${expandTildeImport({
-				importSpecifier: specifier,
-				importerFilePath
-			})}`,
+			url: pathToFileURL(
+				expandTildeImport({
+					importSpecifier: specifier,
+					importerFilePath
+				})
+			).toString(),
 			format: 'module',
 			shortCircuit: true
 		};
@@ -280,10 +282,12 @@ export const resolve = async function (
 	// Support glob imports
 	if (isGlobSpecifier(specifier) && context.parentURL !== undefined) {
 		const importerFilePath = fileURLToPath(context.parentURL);
-		const url = `file://${getGlobfilePath({
-			globfileModuleSpecifier: specifier,
-			importerFilePath
-		})}`;
+		const url = pathToFileURL(
+			getGlobfilePath({
+				globfileModuleSpecifier: specifier,
+				importerFilePath
+			})
+		).toString();
 
 		return {
 			url,
@@ -321,10 +325,12 @@ export const resolve = async function (
 
 		if (relativeFilePaths.length > 0) {
 			return {
-				url: `file://${path.join(
-					packageDirpath,
-					/** @type {string} */ (relativeFilePaths[0])
-				)}`,
+				url: pathToFileURL(
+					path.join(
+						packageDirpath,
+						/** @type {string} */ (relativeFilePaths[0])
+					)
+				).toString(),
 				format: 'module',
 				shortCircuit: true
 			};
