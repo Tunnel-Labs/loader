@@ -157,14 +157,14 @@ Module._resolveFilename = function (request, parent, isMain, options) {
 	if (isGlobSpecifier(request)) {
 		return getGlobfilePath({
 			globfileModuleSpecifier: request,
-			importerFilePath: parent.filename
+			importerFilepath: parent.filename
 		});
 	}
 
 	if (request.startsWith('~')) {
 		request = expandTildeImport({
 			importSpecifier: request,
-			importerFilePath: parent.filename
+			importerFilepath: parent.filename
 		});
 	}
 

@@ -268,12 +268,12 @@ export const resolve = async function (
 
 	// Support tilde alias imports
 	if (specifier.startsWith('~') && context.parentURL !== undefined) {
-		const importerFilePath = fileURLToPath(context.parentURL);
+		const importerFilepath = fileURLToPath(context.parentURL);
 		return {
 			url: pathToFileURL(
 				expandTildeImport({
 					importSpecifier: specifier,
-					importerFilePath
+					importerFilepath
 				})
 			).toString(),
 			format: 'module',
@@ -283,11 +283,11 @@ export const resolve = async function (
 
 	// Support glob imports
 	if (isGlobSpecifier(specifier) && context.parentURL !== undefined) {
-		const importerFilePath = fileURLToPath(context.parentURL);
+		const importerFilepath = fileURLToPath(context.parentURL);
 		const url = pathToFileURL(
 			getGlobfilePath({
 				globfileModuleSpecifier: specifier,
-				importerFilePath
+				importerFilepath
 			})
 		).toString();
 
@@ -498,8 +498,15 @@ export const load = async function (url, context, defaultLoad) {
 
 	const filepath = url.startsWith('file://') ? fileURLToPath(url) : url;
 	if (loaded.format === 'json' || tsExtensionsPattern.test(url)) {
+		const matched = fileMatcher?.(filepath);
 		const transformed = await transform(code, filepath, {
-			tsconfigRaw: /** @type {any} */ (fileMatcher?.(filepath))
+			tsconfigRaw: {
+				...matched,
+				compilerOptions: {
+					...matched?.compilerOptions,
+					experimentalDecorators: true
+				}
+			}
 		});
 
 		return {
