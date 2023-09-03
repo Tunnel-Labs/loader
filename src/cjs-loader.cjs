@@ -23,9 +23,8 @@ const {
 } = require('get-tsconfig');
 const { isFileEsmSync } = require('is-file-esm-ts');
 const {
-	getGlobfileContents,
-	getGlobfilePath,
-	isGlobSpecifier
+	isGlobSpecifier,
+	createGlobfileManager
 	// @ts-expect-error: bad typings
 } = require('glob-imports');
 // @ts-expect-error: bad typings
@@ -47,6 +46,9 @@ const fileMatcher = tsconfig && createFilesMatcher(tsconfig);
 const tsconfigPathsMatcher = tsconfig && createPathsMatcher(tsconfig);
 const applySourceMap = installSourceMapSupport();
 const expandTildeImport = createTildeImportExpander({
+	monorepoDirpath
+});
+const { getGlobfileContents, getGlobfilePath } = createGlobfileManager({
 	monorepoDirpath
 });
 
