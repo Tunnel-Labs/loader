@@ -94,9 +94,15 @@ function transformer(module, filepath) {
 			code = applySourceMap(transformed, filepath);
 		}
 	} else {
+		const matched = fileMatcher?.(filepath);
 		const transformed = transformSync(code, filepath, {
-			// @ts-expect-error: Correct type
-			tsconfigRaw: fileMatcher?.(filepath)
+			tsconfigRaw: {
+				...matched,
+				compilerOptions: {
+					...matched?.compilerOptions,
+					experimentalDecorators: true
+				}
+			}
 		});
 
 		code = applySourceMap(transformed, filepath);
